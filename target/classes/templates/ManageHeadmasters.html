@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <script>
+        function myFunction() {
+            var x = document.getElementById("myTopnav");
+            if (x.className === "topnav") {
+                x.className += " responsive";
+            } else {
+                x.className = "topnav";
+            }
+        }
+    </script>
+    <meta charset="UTF-8">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="/css/main.css" rel="stylesheet">
+    <title>Headmaster Management</title>
+</head>
+<body>
+<div class="topnav" id="myTopnav">
+    <a th:href="@{/administrator/loadAdministratorHomepage}">Home</a></button>
+    <a th:href="@{/user/loadHeadmasterForm}">Add Headmaster</a>
+    <a class="active" th:href="@{/administrator/loadAdministratorHomepage}">View Headmasters</a>
+    <a class="nav-link1" sec:authority="isAuthenticated()" th:href="@{/logout}">Logout</a>
+    <a class="icon" href="javascript:void(0);" onclick="myFunction()" style="font-size:15px;">&#9776;</a>
+</div>
+
+
+
+
+
+
+    <div th:if="${param.success}">
+        <div class="alert alert-info">Headmaster Details Updated!</div>
+    </div>
+    <div th:if="${param.deletesuccess}">
+        <div class="alert alert-info">Headmaster Details Updated!</div>
+    </div>
+
+
+
+<div align="center" class="form1" >
+
+
+    <h1>List of Headmasters</h1>
+    <table class="table" border="1">
+        <thead>
+        <tr>
+            <th> Headmaster ID</th>
+            <th> First Name</th>
+            <th> Last Name</th>
+            <th> Address</th>
+            <th> Phone Number</th>
+            <th> Edit Headmaster</th>
+            <th> Delete Headmaster</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="headmaster : ${headmasters}">
+            <td th:text="${headmaster.headmasterID}"></td>
+            <td th:text="${headmaster.headmasterFirstName}"></td>
+            <td th:text="${headmaster.headmasterLastName}"></td>
+            <td th:text="${headmaster.headmasterAddress}"></td>
+            <td th:text="${headmaster.headmasterPhoneNumber}"></td>
+            <td><a th:href="@{/administrator/editHeadmaster/{id}(id=${headmaster.headmasterID})}"
+                   class="btn btn-primary">Edit</a></td>
+            <td><a th:href="@{/administrator/deleteHeadmaster/{id}(id=${headmaster.headmasterID})}" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+
+
+
+
+</body>
+</html>

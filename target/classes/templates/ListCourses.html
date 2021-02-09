@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="/css/main.css" rel="stylesheet">
+    <title>List Of Courses</title>
+    <a  th:href="@{/headmaster/loadHeadmasterHomepage}">Home</a>
+
+    <a th:href="@{/headmaster/listAllCourses}">List All Courses</a>
+
+    <a th:href="@{/headmaster/listAllTeachers}">List All Teachers</a>
+
+    <a th:href="@{/headmaster/listAllStudents}">List All Students</a>
+
+    <a th:href="@{/headmaster/listBatches}">List All Batches</a>
+</head>
+<body>
+
+<div align="center" class="form1" >
+
+    <div th:if="${param.success}">
+        <div class="alert alert-info">Course Details Updated!</div>
+    </div>
+    <div th:if="${param.deletesuccess}">
+        <div class="alert alert-info">Course Details Updated!</div>
+    </div>
+
+    <h1>List Courses</h1>
+    <table class="table" border="1">
+        <thead>
+        <tr>
+            <th> Course ID</th>
+            <th> Course Name</th>
+            <th> Course Type</th>
+            <th> Course Description</th>
+            <th> Edit Course</th>
+            <th> Delete Course</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="course : ${courses}">
+            <td th:text="${course.courseID}"></td>
+            <td th:text="${course.courseName}"></td>
+            <td th:text="${course.courseType}"></td>
+            <td th:text="${course.courseDescription}"></td>
+            <td><a th:href="@{/headmaster/editCourse/{id}(id=${course.courseID})}"
+                   class="btn btn-primary">Edit</a></td>
+            <td><a th:href="@{/headmaster/deleteCourse/{id}(id=${course.courseID})}" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

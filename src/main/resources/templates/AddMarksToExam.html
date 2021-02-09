@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Mark to Exam Registration</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+</head>
+<body>
+
+<!-- create navigation bar ( header) -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed"
+                    data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+                    aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span> <span
+                    class="icon-bar"></span> <span class="icon-bar"></span> <span
+                    class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" th:href="@{/teacher/loadTeacherHomepage}">Add Marks to an Exam</a>
+        </div>
+    </div>
+</nav>
+
+<br>
+<br>
+<!-- Create HTML registration form -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+
+            <!-- success message -->
+            <div th:if="${param.success}">
+                <div class="alert alert-info">You've successfully added a Marks to an Exam!</div>
+            </div>
+
+            <h1>Registration</h1>
+            <div th:object="${mark}">
+                <div class="form-group">
+                    <label class="control-label" for="examID"> Exam ID </label>
+                    <input id="examID" type="text" disabled class="form-control" th:field="*{exam.examID}"
+                           required autofocus="autofocus" />
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="examName"> Exam Name </label>
+                    <input id="examName" type="text"disabled class="form-control" th:field="*{exam.examName}"
+                           required autofocus="autofocus" />
+                </div>
+
+
+                <form th:action="@{/teacher/addMarksToStudent}" method="post" th:object="${mark}">
+                    <input class="hidden" th:field="*{teacherID}" />
+                    <input class="hidden" th:field="*{examID}" />
+                    <input class="hidden" th:field="*{studentID}" />
+
+
+                    <div class="form-group">
+                        <label class="control-label" for="teacherFirstName"> Teacher First Name </label>
+                        <input id="teacherFirstName" type="text" disabled class="form-control" th:field="*{teacher.teacherFirstName}"
+                               required autofocus="autofocus" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label" for="teacherLastName"> Teacher Last Name </label>
+                        <input id="teacherLastName" type="text"disabled class="form-control" th:field="*{teacher.teacherLastName}"
+                               required autofocus="autofocus" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label" for="marks"> Marks </label> <input
+                            id="marks" class="form-control" th:field="*{marks}" required
+                            autofocus="autofocus"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label" for="grade"> Grade </label> <input
+                            id="grade" class="form-control" th:field="*{grade}" required
+                            autofocus="autofocus"/>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" align="center" class="btn btn-success">Add Marks</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

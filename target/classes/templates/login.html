@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Login</title>
+
+    <link href="/css/main.css" rel="stylesheet">
+</head>
+<body>
+
+<br>
+<br>
+<div class="login-page">
+    <div class="form">
+        <div class="col-md-6 col-md-offset-3">
+
+            <h1> User Login Page </h1>
+            <form th:action="@{/login}"  class="login-form" method="post">
+
+
+                    <input type="text" class="form-control" id="username" name="username"
+                    placeholder="Enter Username" autofocus="autofocus">
+
+                    <input type="password"
+                    id="password" name="password"
+                    placeholder="Enter Password"/>
+
+                    <button type="submit" name="login-submit" id="login-submit">Login </button>
+
+                <!-- error message -->
+                <br><br> <div th:if="${param.error}">
+                <div class="alert alert-danger">Invalid username or
+                    password.
+                </div>
+            </div>
+
+                <!-- logout message -->
+                <div th:if="${param.logout}">
+                    <div class="alert alert-info">You have been logged out.</div>
+                </div>
+
+            </form>
+
+            <!--            <div class="form-group">-->
+<!--						<span>New user? <a href="/" th:href="@{/user/loadAdministratorForm}">Register-->
+<!--								here</a></span>-->
+<!--            </div>-->
+        </div>
+    </div>
+</div>
+</body>
+</html>

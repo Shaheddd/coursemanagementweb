@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Student to Batch Registration</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+</head>
+<body>
+
+<!-- create navigation bar ( header) -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed"
+                    data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+                    aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span> <span
+                    class="icon-bar"></span> <span class="icon-bar"></span> <span
+                    class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" th:href="@{/headmaster/loadHeadmasterHomepage}">Add a Student to a Batch</a>
+        </div>
+    </div>
+</nav>
+
+<br>
+<br>
+<!-- Create HTML registration form -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+
+            <!-- success message -->
+            <div th:if="${param.studentAdded}">
+                <div class="alert alert-info">You've successfully added a Student to a Batch</div>
+            </div>
+
+            <div th:if="${param.failedToSaveStudent}">
+                <div class="alert alert-info">You've failed to add a Student to a Batch</div>
+            </div>
+
+
+            <h1>Registration</h1>
+            <div th:object="${batchRegistration}">
+                <div class="form-group">
+                    <label class="control-label" for="studentFirstName"> Student First Name </label>
+                    <input id="studentFirstName" type="text" disabled class="form-control" th:field="*{student.studentFirstName}"
+                           required autofocus="autofocus" />
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="studentLastName"> Student Last Name </label>
+                    <input id="studentLastName" type="text"disabled class="form-control" th:field="*{student.studentLastName}"
+                           required autofocus="autofocus" />
+                </div>
+
+
+            <div class="form-group">
+                <label class="control-label" for="studentPhoneNumber"> Student Phone Number </label>
+                <input id="studentPhoneNumber" type="text"disabled class="form-control" th:field="*{student.studentPhoneNumber}"
+                       required autofocus="autofocus" />
+            </div>
+
+
+        <div class="form-group">
+            <label class="control-label" for="studentAddress"> Student Address </label>
+            <input id="studentAddress" type="text"disabled class="form-control" th:field="*{student.studentAddress}"
+                   required autofocus="autofocus" />
+        </div>
+        </div>
+
+            <form th:action="@{/headmaster/addStudentToBatch}" method="post" th:object="${batchRegistration}">
+                <input class="hidden" th:field="*{studentID}" />
+                <input class="hidden" th:field="*{batchID}" />
+
+                <div class="form-group">
+                    <button type="submit" align="center" class="btn btn-success">Add Student to Batch</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

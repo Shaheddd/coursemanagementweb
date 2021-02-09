@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <script>
+        function myFunction() {
+            var x = document.getElementById("myTopnav");
+            if (x.className === "topnav") {
+                x.className += " responsive";
+            } else {
+                x.className = "topnav";
+            }
+        }
+    </script>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
+    <title>Student Homepage</title>
+</head>
+<body>
+
+
+<div class="topnav" id="myTopnav">
+    <a class="active" th:href="@{/student/loadStudentHomepage}">Home</a>
+
+    <a class="active" th:href="@{/student/getMyMarks}">View My Marks</a>
+
+    <a class="nav-link1" sec:authority="isAuthenticated()" th:href="@{/logout}">Logout</a>
+
+    <a class="icon" href="javascript:void(0);" onclick="myFunction()" style="font-size:15px;">&#9776;</a>
+</div>
+
+
+<div align="center" class="form1">
+
+
+    <h1>List My Exams</h1>
+    <table border="1" class="table">
+        <thead>
+        <tr>
+            <th>Exam Name</th>
+            <th>Exam Type</th>
+            <th>Exam Description</th>
+            <th>Exam ID</th>
+            <th>Teacher First Name</th>
+            <th>Teacher Last Name</th>
+            <th>Batch Code</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="exam : ${exams}">
+            <td th:text="${exam.examName}"></td>
+            <td th:text="${exam.examType}"></td>
+            <td th:text="${exam.examDescription}"></td>
+            <td th:text="${exam.examID}"></td>
+            <td th:text="${exam.teacher.teacherFirstName}"></td>
+            <td th:text="${exam.teacher.teacherLastName}"></td>
+            <td th:text="${exam.batch.batchCode}"></td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+
+
+</body>
+</html>

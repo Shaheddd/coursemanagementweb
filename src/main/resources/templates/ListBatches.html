@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="/css/main.css" rel="stylesheet">
+    <title>List Of Batches</title>
+    <a  th:href="@{/headmaster/loadHeadmasterHomepage}">Home</a>
+
+    <a th:href="@{/headmaster/listAllCourses}">List All Courses</a>
+
+    <a th:href="@{/headmaster/listAllTeachers}">List All Teachers</a>
+
+    <a th:href="@{/headmaster/listAllStudents}">List All Students</a>
+
+    <a th:href="@{/headmaster/listBatches}">List All Batches</a>
+
+</head>
+<body>
+
+<div align="center" class="form1" >
+    <div th:if="${param.success}">
+        <div class="alert alert-info">Batch Details Updated!</div>
+    </div>
+    <div th:if="${param.deletesuccess}">
+        <div class="alert alert-info">Batch Details Updated!</div>
+    </div>
+
+    <h1>List of Batches</h1>
+    <table class="table" border="1">
+        <thead>
+        <tr>
+            <th> Batch ID</th>
+            <th> Batch Code</th>
+            <th> Teacher First Name</th>
+            <th> Teacher Last Name</th>
+            <th> Course Name </th>
+            <th> Edit Batch</th>
+            <th> Delete Batch</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="batch : ${batches}">
+            <td th:text="${batch.batchID}"></td>
+            <td th:text="${batch.batchCode}"></td>
+            <td th:text="${batch.teacher.teacherFirstName}"></td>
+            <td th:text="${batch.teacher.teacherLastName}"></td>
+            <td th:text="${batch.course.courseName}"></td>
+            <td><a th:href="@{/headmaster/editBatch/{id}(id=${batch.batchID})}"
+                   class="btn btn-primary">Edit</a></td>
+            <td><a th:href="@{/headmaster/deleteBatch/{id}(id=${batch.batchID})}" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

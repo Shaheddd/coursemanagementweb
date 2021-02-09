@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Exam Registration</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+</head>
+<body>
+
+<!-- create navigation bar ( header) -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed"
+                    data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+                    aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span> <span
+                    class="icon-bar"></span> <span class="icon-bar"></span> <span
+                    class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" th:href="@{/teacher/loadTeacherHomepage}">Exam Registration</a>
+        </div>
+    </div>
+</nav>
+
+<br>
+<br>
+<!-- Create HTML registration form -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+
+            <!-- success message -->
+            <div th:if="${param.success}">
+                <div class="alert alert-info">You've successfully added the Exam into the System!
+                </div>
+            </div>
+
+            <h1>Registration</h1>
+
+            <form th:action="@{/teacher/createExam}" method="post" th:object="${exam}">
+
+                <div class="form-group">
+                    <label class="control-label" for="examName"> Exam Name </label> <input
+                        id="examName" class="form-control" th:field="*{examName}" required
+                        autofocus="autofocus"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="examType"> Exam Type </label>
+                    <input id="examType" class="form-control" th:field="*{examType}"
+                           required autofocus="autofocus"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="examDescription"> Exam Description </label> <input
+                        id="examDescription" class="form-control" th:field="*{examDescription}"
+                        required autofocus="autofocus"/>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" align="center" class="btn btn-success">Create an Exam</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

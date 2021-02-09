@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <script>
+        function myFunction() {
+            var x = document.getElementById("myTopnav");
+            if (x.className === "topnav") {
+                x.className += " responsive";
+            } else {
+                x.className = "topnav";
+            }
+        }
+    </script>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
+    <title>Administrator Homepage</title>
+</head>
+<div>
+
+
+<div class="topnav" id="myTopnav">
+    <a class="active" th:href="@{/administrator/loadAdministratorHomepage}">Home</a>
+
+    <div class="dropdown">
+        <button class="dropbtn">Add
+            <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+            <a th:href="@{/user/loadStudentForm}">Add New Student</a>
+
+            <a th:href="@{/user/loadTeacherForm}">Add New Teacher</a>
+
+            <a th:href="@{/user/loadHeadmasterForm}">Add New Headmaster</a>
+
+            <a th:href="@{/user/loadAdministratorForm}">Add Admin</a>
+
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">Manage
+            <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+            <a th:href="@{/administrator/manageStudents}">Manage Students</a>
+
+            <a th:href="@{/administrator/manageTeachers}">Manage Teachers</a>
+
+            <a th:href="@{/administrator/manageHeadmasters}">Manage Headmaster</a>
+
+        </div>
+    </div>
+    <a class="nav-link1" sec:authority="isAuthenticated()" th:href="@{/logout}">Logout</a>
+
+    <a class="icon" href="javascript:void(0);" onclick="myFunction()" style="font-size:15px;">&#9776;</a>
+</div>
+
+
+<div align="center" class="form1">
+    <h1>List Users</h1>
+    <table border="1" class="table">
+        <thead>
+        <tr>
+            <th>User ID</th>
+            <th>Username</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Address</th>
+            <th>Phone Number</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.userID}"></td>
+            <td th:text="${user.username}"></td>
+            <td th:text="${user.firstName}"></td>
+            <td th:text="${user.lastName}"></td>
+            <td th:text="${user.address}"></td>
+            <td th:text="${user.phoneNumber}"></td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+</div>
+
+</body>
+</html>

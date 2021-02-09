@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Batch Management System</title>
+
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+
+</head>
+<body>
+
+<div class="container my-2">
+    <h1> <a class="navbar-brand" th:href="@{/headmaster/loadHeadmasterHomepage}">List of Batches</a></h1>
+    <div th:if="${param.success}">
+        <div class="alert alert-info">Batch Details Updated!</div>
+    </div>
+    <div th:if="${param.deletesuccess}">
+        <div class="alert alert-info">Batch Details Updated!</div>
+    </div>
+
+    <table border="1" class="table table-striped table-responsive-md">
+        <thead>
+        <tr>
+            <th> Batch ID</th>
+            <th> Batch Code</th>
+            <th> Add Student</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="batch : ${batches}">
+            <td th:text="${batch.batchID}"></td>
+            <td th:text="${batch.batchCode}"></td>
+            <td><a type="button" class="btn btn-info btn-rounded" th:href="@{/headmaster/loadBatchAddStudent/{id}(id=${batch.batchID})}">Add a Student</a></td>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

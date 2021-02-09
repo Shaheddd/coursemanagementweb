@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="/css/main.css" rel="stylesheet">
+    <title>List Of Teachers</title>
+    <script>
+        function myFunction() {
+            var x = document.getElementById("myTopnav");
+            if (x.className === "topnav") {
+                x.className += " responsive";
+            } else {
+                x.className = "topnav";
+            }
+        }
+    </script>
+</head>
+<div class="topnav" id="myTopnav">
+    <a th:href="@{/administrator/loadAdministratorHomepage}">Home</a></button>
+    <a th:href="@{/user/loadTeacherForm}"> Add Teacher </a></button>
+    <a class="active" th:href="@{/administrator/manageTeachers}">View Teacher</a>
+    <a class="nav-link1" sec:authority="isAuthenticated()" th:href="@{/logout}">Logout</a>
+    <a class="icon" href="javascript:void(0);" onclick="myFunction()" style="font-size:15px;">&#9776;</a>
+</div>
+<body>
+
+<div align="center" class="form1" >
+
+    <div th:if="${param.success}">
+        <div class="alert alert-info">Teacher Details Updated!</div>
+    </div>
+    <div th:if="${param.deletesuccess}">
+        <div class="alert alert-info">Teacher Details Updated!</div>
+    </div>
+    <h1>Teacher Management</h1>
+    <table class="table" border="1">
+        <thead>
+        <tr>
+            <th> Teacher ID</th>
+            <th> First Name</th>
+            <th> Last Name</th>
+            <th> Address</th>
+            <th> Phone Number</th>
+            <th> Edit Teacher</th>
+            <th> Delete Teacher</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="teacher : ${teachers}">
+            <td th:text="${teacher.teacherID}"></td>
+            <td th:text="${teacher.teacherFirstName}"></td>
+            <td th:text="${teacher.teacherLastName}"></td>
+            <td th:text="${teacher.teacherAddress}"></td>
+            <td th:text="${teacher.teacherPhoneNumber}"></td>
+            <td><a th:href="@{/administrator/editTeacher/{id}(id=${teacher.teacherID})}"
+                   class="btn btn-primary">Edit</a></td>
+            <td><a th:href="@{/administrator/deleteTeacher/{id}(id=${teacher.teacherID})}" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Exam to Batch Registration</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+</head>
+<body>
+
+<!-- create navigation bar ( header) -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed"
+                    data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+                    aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span> <span
+                    class="icon-bar"></span> <span class="icon-bar"></span> <span
+                    class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" th:href="@{/teacher/loadTeacherHomepage}">Add an Exam to a Batch</a>
+        </div>
+    </div>
+</nav>
+
+<br>
+<br>
+<!-- Create HTML registration form -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+
+            <!-- success message -->
+            <div th:if="${param.success}">
+                <div class="alert alert-info">You've successfully added an Exam to a Batch</div>
+            </div>
+
+            <h1>Registration</h1>
+            <div th:object="${exam}">
+                <div class="form-group">
+                    <label class="control-label" for="batchID"> Batch ID </label>
+                    <input id="batchID" type="text" disabled class="form-control" th:field="*{batch.batchID}"
+                           required autofocus="autofocus" />
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="batchCode"> Batch Code </label>
+                    <input id="batchCode" type="text"disabled class="form-control" th:field="*{batch.batchCode}"
+                           required autofocus="autofocus" />
+                </div>
+
+
+            <form th:action="@{/teacher/addExamToBatch}" method="post" th:object="${exam}">
+                <input class="hidden" th:field="*{teacherID}" />
+                <input class="hidden" th:field="*{examID}" />
+                <input class="hidden" th:field="*{batchID}" />
+
+                <div class="form-group">
+                    <label class="control-label" for="teacherFirstName"> Teacher First Name </label>
+                    <input id="teacherFirstName" type="text" disabled class="form-control" th:field="*{batch.teacher.teacherFirstName}"
+                           required autofocus="autofocus" />
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="teacherLastName"> Teacher Last Name </label>
+                    <input id="teacherLastName" type="text" disabled class="form-control" th:field="*{batch.teacher.teacherLastName}"
+                           required autofocus="autofocus" />
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="examName"> Exam Name </label> <input
+                        id="examName" class="form-control" th:field="*{examName}" required
+                        autofocus="autofocus"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="examType"> Exam Type </label> <input
+                        id="examType" class="form-control" th:field="*{examType}" required
+                        autofocus="autofocus"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="examDescription"> Exam Description </label> <input
+                        id="examDescription" class="form-control" th:field="*{examDescription}" required
+                        autofocus="autofocus"/>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" align="center" class="btn btn-success">Add an Exam to Batch</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+</div>
+</body>
+</html>

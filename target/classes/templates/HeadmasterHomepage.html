@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <script>
+        function myFunction() {
+            var x = document.getElementById("myTopnav");
+            if (x.className === "topnav") {
+                x.className += " responsive";
+            } else {
+                x.className = "topnav";
+            }
+        }
+    </script>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
+    <title>Headmaster Homepage</title>
+</head>
+<body>
+
+
+<div class="topnav" id="myTopnav">
+    <a class="active" th:href="@{/headmaster/loadHeadmasterHomepage}">Home</a>
+
+    <a th:href="@{/headmaster/listAllCourses}">List All Courses</a>
+
+    <a th:href="@{/headmaster/listAllTeachers}">List All Teachers</a>
+
+    <a th:href="@{/headmaster/listAllStudents}">List All Students</a>
+
+    <a th:href="@{/headmaster/listBatches}">List All Batches</a>
+
+    <a class="nav-link1" sec:authority="isAuthenticated()" th:href="@{/logout}">Logout</a>
+
+    <a class="icon" href="javascript:void(0);" onclick="myFunction()" style="font-size:15px;">&#9776;</a>
+</div>
+
+    <div th:if="${param.studentAdded}">
+        <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">Student Added To Batch!</h4>
+            <hr>
+            <p class="mb-0"></p>
+        </div>
+    </div>
+    <div th:if="${param.failedToSaveStudent}">
+        <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">Student Failed to Add to Batch</h4>
+            <hr>
+            <p class="mb-0"></p>
+        </div>
+    </div>
+
+<div align="center" class="form1">
+
+    <h1>List Courses</h1>
+    <table border="1" class="table">
+        <thead>
+        <tr>
+            <th>Course ID</th>
+            <th>Course Name</th>
+            <th>Course Type</th>
+            <th>Course Description</th>
+            <th>Add Batch</th>
+            <th>View Current Batches</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="course : ${courses}">
+            <td th:text="${course.courseID}"></td>
+            <td th:text="${course.courseName}"></td>
+            <td th:text="${course.courseType}"></td>
+            <td th:text="${course.courseDescription}"></td>
+            <td><a type="button" class="btn btn-info btn-rounded" th:href="@{/headmaster/createNewBatch/{id}(id=${course.courseID})}">Add a Batch</a></td>
+            <td><a type="button" class="btn btn-info btn-rounded" th:href="@{/headmaster/listCurrentBatches/{id}(id=${course.courseID})}">View Current Batches</a></td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
